@@ -36,4 +36,5 @@ dependencies {
     implementation project(path: ':zxing')
     implementation 'com.rmtheis:tess-two:9.0.0'
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
+
 }
