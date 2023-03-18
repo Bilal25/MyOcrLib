@@ -17,7 +17,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.google.zxing.Result;
+import com.google.zxing.Resultview;
 import com.syedbilalali.ocr.R;
 import com.syedbilalali.ocr.ScannerActivity;
 import com.syedbilalali.ocr.camera.CameraManager;
@@ -53,7 +53,7 @@ public final class CaptureActivityHandler extends Handler {
         } else if (message.what == R.id.decode_succeeded) {
             Log.e(TAG, "Got decode succeeded message");
             mState = State.SUCCESS;
-            mActivity.handleDecode((Result) message.obj);
+            mActivity.handleDecode((Resultview) message.obj);
         } else if (message.what == R.id.decode_failed) {// We're decoding as fast as possible, so when one decode fails, start another.
             mState = State.PREVIEW;
             CameraManager.get().requestPreviewFrame(mDecodeThread.getHandler(), R.id.decode);

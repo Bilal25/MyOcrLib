@@ -20,14 +20,14 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.PlanarYUVLuminanceSource;
-import com.google.zxing.Result;
-import com.google.zxing.common.GlobalHistogramBinarizer;
-import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.BarcodeFormatview;
+import com.google.zxing.BinaryBitmapview;
+import com.google.zxing.DecodeHintTypeview;
+import com.google.zxing.MultiFormatReaderview;
+import com.google.zxing.PlanarYUVLuminanceSourceview;
+import com.google.zxing.Resultview;
+import com.google.zxing.common.GlobalHistogramBinarizerView;
+import com.google.zxing.common.HybridBinarizerView;
 import com.syedbilalali.ocr.R;
 import com.syedbilalali.ocr.ScannerActivity;
 import com.syedbilalali.ocr.tess.TessEngine;
@@ -42,21 +42,21 @@ import java.util.Map;
 final class DecodeHandler extends Handler {
 
     private final ScannerActivity mActivity;
-    private final MultiFormatReader mMultiFormatReader;
-    private final Map<DecodeHintType, Object> mHints;
+    private final MultiFormatReaderview mMultiFormatReader;
+    private final Map<DecodeHintTypeview, Object> mHints;
     private byte[] mRotatedData;
     
     DecodeHandler(ScannerActivity activity) {
         this.mActivity = activity;
-        mMultiFormatReader = new MultiFormatReader();
+        mMultiFormatReader = new MultiFormatReaderview();
         mHints = new Hashtable<>();
-        mHints.put(DecodeHintType.CHARACTER_SET, "utf-8");
-        mHints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
-        Collection<BarcodeFormat> barcodeFormats = new ArrayList<>();
-        barcodeFormats.add(BarcodeFormat.CODE_39);
-        barcodeFormats.add(BarcodeFormat.CODE_128); // 快递单常用格式39,128
-        barcodeFormats.add(BarcodeFormat.QR_CODE); //扫描格式自行添加
-        mHints.put(DecodeHintType.POSSIBLE_FORMATS, barcodeFormats);
+        mHints.put(DecodeHintTypeview.CHARACTER_SET, "utf-8");
+        mHints.put(DecodeHintTypeview.TRY_HARDER, Boolean.TRUE);
+        Collection<BarcodeFormatview> barcodeFormats = new ArrayList<>();
+        barcodeFormats.add(BarcodeFormatview.CODE_39);
+        barcodeFormats.add(BarcodeFormatview.CODE_128); // 快递单常用格式39,128
+        barcodeFormats.add(BarcodeFormatview.QR_CODE); //扫描格式自行添加
+        mHints.put(DecodeHintTypeview.POSSIBLE_FORMATS, barcodeFormats);
     }
 
     @Override
@@ -100,30 +100,30 @@ final class DecodeHandler extends Handler {
         width = height;
         height = tmp;
 
-        Result rawResult = null;
+        Resultview rawResult = null;
         try {
             Rect rect = mActivity.getCropRect();
             if (rect == null) {
                 return;
             }
 
-            PlanarYUVLuminanceSource source = new PlanarYUVLuminanceSource(mRotatedData, width, height, rect.left, rect.top, rect.width(), rect.height(), false);
+            PlanarYUVLuminanceSourceview source = new PlanarYUVLuminanceSourceview(mRotatedData, width, height, rect.left, rect.top, rect.width(), rect.height(), false);
 
             if (mActivity.isQRCode()){
                 /*
                  HybridBinarizer算法使用了更高级的算法，针对渐变图像更优，也就是准确率高。
                  但使用GlobalHistogramBinarizer识别效率确实比HybridBinarizer要高一些。
                  */
-                rawResult = mMultiFormatReader.decode(new BinaryBitmap(new GlobalHistogramBinarizer(source)), mHints);
+                rawResult = mMultiFormatReader.decode(new BinaryBitmapview(new GlobalHistogramBinarizerView(source)), mHints);
                 if (rawResult == null) {
-                    rawResult = mMultiFormatReader.decode(new BinaryBitmap(new HybridBinarizer(source)), mHints);
+                    rawResult = mMultiFormatReader.decode(new BinaryBitmapview(new HybridBinarizerView(source)), mHints);
                 }
             }else{
                 TessEngine tessEngine = TessEngine.Generate();
                 Bitmap bitmap = source.renderCroppedGreyscaleBitmap();
                 String result = tessEngine.detectText(bitmap);
                 if(!TextUtils.isEmpty(result)){
-                    rawResult = new Result(result, null, null, null);
+                    rawResult = new Resultview(result, null, null, null);
                     rawResult.setBitmap(bitmap);
                 }
             }

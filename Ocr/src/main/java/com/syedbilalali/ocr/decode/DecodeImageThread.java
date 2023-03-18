@@ -3,7 +3,7 @@ package com.syedbilalali.ocr.decode;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 
-import com.google.zxing.Result;
+import com.google.zxing.Resultview;
 import com.syedbilalali.ocr.utils.QrUtils;
 
 /**
@@ -41,7 +41,7 @@ public class DecodeImageThread implements Runnable {
             return;
         }
 
-        final Result result = QrUtils.decodeImage(mData, mWidth, mHeight);
+        final Resultview result = QrUtils.decodeImage(mData, mWidth, mHeight);
 
         if (null != mCallback) {
             if (null != result) {

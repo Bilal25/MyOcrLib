@@ -3,14 +3,22 @@ package com.syedbilalali.ocr.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.PlanarYUVLuminanceSource;
-import com.google.zxing.ReaderException;
-import com.google.zxing.Result;
-import com.google.zxing.common.GlobalHistogramBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
+import com.google.zxing.BarcodeFormatview;
+import com.google.zxing.BarcodeFormatview;
+import com.google.zxing.BinaryBitmapview;
+import com.google.zxing.BinaryBitmapview;
+import com.google.zxing.DecodeHintTypeview;
+import com.google.zxing.DecodeHintTypeview;
+import com.google.zxing.PlanarYUVLuminanceSourceview;
+import com.google.zxing.PlanarYUVLuminanceSourceview;
+import com.google.zxing.ReaderExceptionview;
+import com.google.zxing.ReaderExceptionview;
+import com.google.zxing.Resultview;
+import com.google.zxing.Resultview;
+import com.google.zxing.common.GlobalHistogramBinarizerView;
+import com.google.zxing.common.GlobalHistogramBinarizerView;
+import com.google.zxing.qrcode.QRCodeReaderview;
+import com.google.zxing.qrcode.QRCodeReaderview;
 
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -157,16 +165,16 @@ public class QrUtils {
      * Decode the data within the viewfinder rectangle, and time how long it took. For efficiency, reuse the same reader
      * objects from one decode to the next.
      */
-    public static Result decodeImage(byte[] data, int width, int height) {
+    public static Resultview decodeImage(byte[] data, int width, int height) {
         // 处理
-        Result result = null;
+        Resultview result = null;
         try {
-            Hashtable<DecodeHintType, Object> hints = new Hashtable<DecodeHintType, Object>();
-            hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
-            hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
-            hints.put(DecodeHintType.POSSIBLE_FORMATS, BarcodeFormat.QR_CODE);
-            PlanarYUVLuminanceSource source =
-                    new PlanarYUVLuminanceSource(data, width, height, 0, 0, width, height, false);
+            Hashtable<DecodeHintTypeview, Object> hints = new Hashtable<DecodeHintTypeview, Object>();
+            hints.put(DecodeHintTypeview.CHARACTER_SET, "utf-8");
+            hints.put(DecodeHintTypeview.TRY_HARDER, Boolean.TRUE);
+            hints.put(DecodeHintTypeview.POSSIBLE_FORMATS, BarcodeFormatview.QR_CODE);
+            PlanarYUVLuminanceSourceview source =
+                    new PlanarYUVLuminanceSourceview(data, width, height, 0, 0, width, height, false);
             /**
              * HybridBinarizer算法使用了更高级的算法，但使用GlobalHistogramBinarizer识别效率确实比HybridBinarizer要高一些。
              *
@@ -177,11 +185,11 @@ public class QrUtils {
              * 从直方图中取点数最多的一个灰度值，然后再去给其他的灰度值进行分数计算，按照点数乘以与最多点数灰度值的距离的平方来进行打分，选分数最高的一个灰度值。接下来在这两个灰度值中间选取一个区分界限，
              * 取的原则是尽量靠近中间并且要点数越少越好。界限有了以后就容易了，与整幅图像的每个点进行比较，如果灰度值比界限小的就是黑，在新的矩阵中将该点置1，其余的就是白，为0。
              */
-            BinaryBitmap bitmap1 = new BinaryBitmap(new GlobalHistogramBinarizer(source));
+            BinaryBitmapview bitmap1 = new BinaryBitmapview(new GlobalHistogramBinarizerView(source));
             // BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
-            QRCodeReader reader2 = new QRCodeReader();
+            QRCodeReaderview reader2 = new QRCodeReaderview();
             result = reader2.decode(bitmap1, hints);
-        } catch (ReaderException e) {
+        } catch (ReaderExceptionview e) {
         }
         return result;
     }

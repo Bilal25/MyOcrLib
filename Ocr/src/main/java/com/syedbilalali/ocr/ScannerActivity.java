@@ -37,7 +37,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
-import com.google.zxing.Result;
+import com.google.zxing.Resultview;
 import com.syedbilalali.ocr.camera.CameraManager;
 import com.syedbilalali.ocr.decode.CaptureActivityHandler;
 import com.syedbilalali.ocr.decode.DecodeManager;
@@ -242,7 +242,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
      *
      * @param result
      */
-    public void handleDecode(Result result) {
+    public void handleDecode(Resultview result) {
         mInactivityTimer.onActivity();
         if (null == result) {
             mDecodeManager.showCouldNotReadQrCodeFromScanner(this, new DecodeManager.OnRefreshCameraListener() {
@@ -307,7 +307,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
         return mCaptureActivityHandler;
     }
 
-    private void handleResult(Result result) {
+    private void handleResult(Resultview result) {
         if (TextUtils.isEmpty(result.getText())) {
             mDecodeManager.showCouldNotReadQrCodeFromScanner(this, new DecodeManager.OnRefreshCameraListener() {
                 @Override
