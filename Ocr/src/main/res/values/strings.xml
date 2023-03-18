@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">OCR</string>
+    <!--扫一扫-->
+    <string name="title_activity_scan_qr_code">Scan</string>
+    <string name="close">Close</string>
+    <string name="auto_scan_notification">Auto Scan</string>
+    <string name="notification">Notice</string>
+    <string name="positive_button_confirm">Ok</string>
+    <string name="could_not_read_qr_code_from_scanner">Could not read Scanner</string>
+    <string name="camera_not_found">Camera Not Found</string>
+    <string name="is_qr_code_scanner">是否扫码 </string>
+    <string name="is_open_flashlight">Open Flash </string>
+    <string name="take_photos">Take photo</string>
+</resources>
